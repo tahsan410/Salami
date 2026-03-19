@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://127.0.0.1:5500/.cph/salami.html -->
+<html lang="bn"><script src="chrome-extension://nimlmejbmnecnaghgmbahmbaddhjbecg/content/location/location.js" id="nimlmejbmnecnaghgmbahmbaddhjbecg"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সালামি লটারি - ঈদ মোবারক</title>
+    <link href="./Salami_files/css2" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            transition: background-color 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+            color: #fff;
+            position: relative;
+        }
+
+        /* Background Decorative Text */
+        .eid-bg-text {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            z-index: 100;
+        }
+
+        .page {
+            display: none;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeIn 0.6s ease-out;
+            z-index: 10;
+        }
+
+        .page.active { display: block; }
+
+        h1 { font-size: 2.2rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        p { font-size: 1.05rem; margin-bottom: 20px; opacity: 0.9; }
+
+        .btn {
+            background: linear-gradient(135deg, #ff9800, #f44336);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+
+        /* Salami Card UI for Dibo Page */
+        .salami-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #333;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .tenor-gif {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: #fff; 
+        }
+
+        .number-anim {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2e7d32;
+            letter-spacing: 1px;
+            display: block;
+            margin: 10px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Spin Note Image */
+        #spin-image {
+            width: 240px;
+            height: auto;
+            border-radius: 12px;
+            margin: 20px auto;
+            display: block;
+            border: 4px solid #fff;
+            background: #fff;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* Floating Animation for Spin Page */
+        #floating-notes-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1; opacity: 0.4;
+        }
+        .floating-note {
+            position: absolute; width: 60px;
+            animation: floatAround infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body id="body" style="background-color: #4A148C;" onclick="playAudio()">
+
+    <audio id="bgMusic" loop="">
+        <source src="salami.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="eid-bg-text">Developed by <b>Tahsan Farhad Ovi</b></div>
+
+    <div id="page-home" class="page active">
+        <h1>ঈদ মোবারক! 🌙</h1>
+        <p>আনন্দের এই দিনে ছোট বড় সবার মনে থাকুক খুশি।<br>বলো তো, সালামি কি তুমি নিবা নাকি আমাকে দিবা?</p>
+        <button class="btn" onclick="goToPage(&#39;page-dibo&#39;, &#39;#AD1457&#39;)">দিবো</button>
+        <button class="btn" onclick="goToPage(&#39;page-rules&#39;, &#39;#1565C0&#39;)">নিবো</button>
+    </div>
+
+    <div id="page-dibo" class="page">
+        <h2>অভিকে সালামি পাঠানোর ঠিকানা 🎁</h2>
+        <div class="salami-card">
+            <img class="tenor-gif" src="./Salami_files/eid-salami-eid-mubarak.gif" alt="Eid Salami">
+            <span style="display:block; font-weight:600; color:#555;">বিকাশ/নগদ নাম্বার:</span>
+            <div class="number-anim">01572915166</div>
+        </div>
+        <p>ঈদ মোবারক! দোয়া করবেন… আর একটু সালামি দিয়ে দোয়াটা শক্ত করে দিন 😌</p>
+        <button class="btn" onclick="goToPage(&#39;page-home&#39;, &#39;#4A148C&#39;)">পিছনে যাও</button>
+    </div>
+
+    <div id="page-rules" class="page">
+        <h2>লটারির মাধ্যমে অভির কাছ থেকে সালামি নেও! 📜</h2>
+        <p>পরের পেজে তোমাকে একটা লটারি দেওয়া হবে, সেখানে সকল টাকার নোট রাখা আছে। তুমি স্পিন করলে টাকাগুলো শাফল হতে থাকবে। স্পিন থামলে যে টাকাটা তোমার স্ক্রিনে আসবে, সেই সালামিটাই তুমি আমার থেকে পাবা!</p>
+        <p style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px;"><b>নিয়ম:</b> যে টাকা আসবে সেটার স্ক্রিনশট আমাকে পাঠাতে হবে। ব্যাস, কাজ শেষ!</p>
+        <button class="btn" onclick="goToPage(&#39;page-spin&#39;, &#39;#00695C&#39;)">সালামি নিতে চাই</button>
+    </div>
+
+    <div id="page-spin" class="page">
+        <h2>কয় টাকা সালামি পাবা দেখো তো..</h2>
+        <img class="tenor-gif" src="./Salami_files/dddd.gif" alt="Salami GIF">
+        
+        <div style="min-height: 150px;">
+            <img id="spin-image" src="./Salami_files/salami-eid-salami.gif" alt="টাকার নোট">
+            <p id="spin-result" style="display: none; font-size: 1.3rem; font-weight: bold; margin-top: 15px;"></p>
+        </div>
+        
+        <button id="spin-btn" class="btn" onclick="startSpin()">স্পিন করো 🎰</button>
+        <button id="next-btn" class="btn" style="display: none;" onclick="goToPage(&#39;page-wish&#39;, &#39;#D84315&#39;)">উইশ পেজ</button>
+    </div>
+
+    <div id="floating-notes-container" style="display: none;"></div>
+
+    <div id="page-wish" class="page">
+        <h1>ঈদ মোবারক! 🎉</h1>
+        <p>ঈদের চাঁদ বয়ে আনুক সুখ আর সমৃদ্ধি। তোমার এবং তোমার পরিবারের সবার ঈদ কাটুক আনন্দে।</p>
+        <img style="width:100%; border-radius:15px;" src="./Salami_files/niagichi-nia.gif" alt="Eid Mubarak">
+        <p style="margin-top:20px; font-style:italic;">শুভেচ্ছান্তে- <br> <b>তাহসান ফরহাদ অভি</b></p>
+    </div>
+
+    <script>
+        const notes = ['1000.png', '500.png', '100.png', '50.png', '20.png', '10.png', '5.png'];
+        const floatContainer = document.getElementById('floating-notes-container');
+        const audio = document.getElementById('bgMusic');
+
+        // Function to play audio on interaction
+        function playAudio() {
+            audio.play().catch(error => {
+                console.log("Autoplay was prevented. Click anywhere to play music.");
+            });
+        }
+
+        function setupFloatingNotes() {
+            floatContainer.innerHTML = '';
+            for(let i=0; i<10; i++) {
+                const img = document.createElement('img');
+                img.src = notes[Math.floor(Math.random()*notes.length)];
+                img.className = 'floating-note';
+                img.style.left = Math.random() * 90 + '%';
+                img.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                img.style.animationDelay = Math.random() * 5 + 's';
+                floatContainer.appendChild(img);
+            }
+        }
+
+        function goToPage(pageId, bgColor) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.body.style.backgroundColor = bgColor;
+            if (pageId === 'page-spin') {
+                setupFloatingNotes();
+                floatContainer.style.display = 'block';
+            } else {
+                floatContainer.style.display = 'none';
+            }
+        }
+
+        function getWeightedRandomOutcome() {
+            let rand = Math.random() * 100;
+            if (rand < 35) return { value: 0, img: 'https://media1.tenor.com/m/OroVCOXbuUUAAAAC/sadhamstergirl.gif' }; 
+            if (rand < 60) return { value: 5, img: '5.png' };   
+            if (rand < 85) return { value: 10, img: '10.png' }; 
+            if (rand < 96) return { value: 20, img: '20.png' }; 
+            if (rand < 98.5) return { value: 50, img: '50.png' }; 
+            if (rand < 99.5) return { value: 100, img: '100.png' };
+            if (rand < 99.8) return { value: 500, img: '500.png' }; 
+            return { value: 1000, img: '1000.png' }; 
+        }
+
+        function startSpin() {
+            const spinBtn = document.getElementById('spin-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const imgElement = document.getElementById('spin-image');
+            const resultText = document.getElementById('spin-result');
+            
+            spinBtn.style.display = 'none';
+            resultText.style.display = 'none';
+
+            let finalOutcome = getWeightedRandomOutcome();
+            let counter = 0;
+            let interval = setInterval(() => {
+                imgElement.src = notes[Math.floor(Math.random() * notes.length)];
+                counter++;
+                if (counter > 30) {
+                    clearInterval(interval);
+                    imgElement.src = finalOutcome.img; 
+                    if (finalOutcome.value === 0) {
+                        resultText.innerHTML = `তোমার কপালে সালামি আসলো না রে,,, 😢 Sad,,,`;
+                        resultText.style.color = '#ff8a80';
+                    } else {
+                        resultText.innerHTML = `🎉 তুমি ${finalOutcome.value} টাকা সালামি পাবা! তাড়াতাড়ি স্ক্রিনশট নিয়ে নাও!`;
+                        resultText.style.color = '#fff176';
+                    }
+                    resultText.style.display = 'block';
+                    nextBtn.style.display = 'inline-block';
+                }
+            }, 80);
+        }
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>
